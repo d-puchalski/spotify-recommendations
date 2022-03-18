@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "esNext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+		"experimentalDecorators": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+}

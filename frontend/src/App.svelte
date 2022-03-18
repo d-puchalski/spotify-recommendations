@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Header from "./views/header.svelte";
   import Footer from "./views/footer.svelte";
   import MainForn from "./views/mainForm.svelte";

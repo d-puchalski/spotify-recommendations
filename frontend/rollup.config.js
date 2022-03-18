@@ -6,6 +6,8 @@ import { terser } from "rollup-plugin-terser";
 import css from "rollup-plugin-css-only";
 import replace from "@rollup/plugin-replace";
 import dotenv from "dotenv";
+import sveltePreprocess from 'svelte-preprocess';
+import typescript from '@rollup/plugin-typescript';
 
 dotenv.config();
 
@@ -33,7 +35,7 @@ function serve() {
 }
 
 export default {
-  input: "src/main.js",
+  input: "src/main.ts",
   output: {
     sourcemap: true,
     format: "iife",
@@ -42,10 +44,12 @@ export default {
   },
   plugins: [
     replace({
+      preventAssignment: true,
       API: JSON.stringify(process.env.API),
     }),
     svelte({
-      compilerOptions: {
+      preprocess: sveltePreprocess({ sourceMap: !production }),
+			compilerOptions: {
         // enable run-time checks when not in production
         dev: !production,
       },
@@ -64,6 +68,10 @@ export default {
       dedupe: ["svelte"],
     }),
     commonjs(),
+		typescript({
+			sourceMap: !production,
+			inlineSources: !production
+		}),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
