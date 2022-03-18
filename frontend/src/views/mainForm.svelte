@@ -12,7 +12,7 @@
   let _globalStore: IGlobalStore = null;
   let suggestions: Array<any> = [];
 
-  $: isFindable = selectedArtists && selectedArtists.length > 0 && selectedTracks && selectedTracks.length > 0;
+  $: isFindable = selectedArtists && selectedArtists.length > 0 && selectedTracks && selectedTracks.length > 0 && _globalStore.limit && _globalStore.genres && _globalStore.genres.length > 0 && _globalStore.market;
 
   async function findSuggestion(): Promise<void> {
     suggestions = (await api.GetRecommendationsApi(get(globalStore), selectedArtists, selectedTracks)).tracks;
