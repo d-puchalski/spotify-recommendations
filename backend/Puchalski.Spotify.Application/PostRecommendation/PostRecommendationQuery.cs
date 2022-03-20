@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Puchalski.Spotify.Integration.PostRecommendation {
+namespace Puchalski.Spotify.Application.PostRecommendation {
     public class PostRecommendationQuery: IRequest<List<RecommendationItemDto>> {
         public int? Limit { get; set; }
 

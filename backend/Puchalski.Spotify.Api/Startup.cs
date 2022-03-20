@@ -1,13 +1,13 @@
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
 using Puchalski.Spotify.Api.Configuration;
+using Puchalski.Spotify.Application.Configuration;
+using Puchalski.Spotify.Domain.Recommendation;
 using Puchalski.Spotify.Domain.Search;
-using Puchalski.Spotify.Integration.Configuration;
-using Puchalski.Spotify.Integration.GetSearch;
-using Puchalski.Spotify.Integration.PostRecommendation;
+using Puchalski.Spotify.ExternalApi.Abstraction;
+using Puchalski.Spotify.ExternalApi.Main;
 using Serilog;
 using System.Net;
 
@@ -32,10 +32,14 @@ namespace Puchalski.Spotify.Api {
                 logging.ResponseBodyLogLimit = 4096;
             });
 
+            (string client_id, string client_secret) = getConfiguration(Configuration);
+
             services.AddAntiforgery();
-            services.AddTransient<ISearchService, SearchService>();
-            services.AddTransient<IRecommendationService, RecommendationService>();
-            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+            services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<IRecommendationService, RecommendationService>();
+            services.AddScoped<IExternalCommonApi>(_ => new SpotifyApi(client_id, client_secret));
+            services.AddAutoMapper(typeof(ApplicationProfile).Assembly);
+            services.AddAutoMapper(typeof(DomainProfile).Assembly);
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
             IdentityModelEventSource.ShowPII = true;
@@ -64,6 +68,27 @@ namespace Puchalski.Spotify.Api {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
+        }
+
+        private (string client_id, string client_secret) getConfiguration(IConfiguration _configuration) {
+            string? recommendationApiName = _configuration.GetRequiredSection("RecommendationApiName")?.Value;
+            if (string.IsNullOrEmpty(recommendationApiName)) {
+                throw new Exception("RecommendationApiName required");
+            }
+            var recommendationApiSpotifySection = _configuration.GetRequiredSection("RecommendationApiSpotify");
+            if (!recommendationApiSpotifySection.Exists()) {
+                throw new Exception("RecommendationApiSpotify required");
+            } else {
+                if (string.IsNullOrEmpty(recommendationApiSpotifySection["client_id"])) {
+                    throw new Exception("RecommendationApiName client_id required");
+                }
+
+                if (string.IsNullOrEmpty(recommendationApiSpotifySection["client_secret"])) {
+                    throw new Exception("RecommendationApiName client_secret required");
+                }
+
+                return (recommendationApiSpotifySection["client_id"], recommendationApiSpotifySection["client_secret"]);
+            }
         }
     }
 }

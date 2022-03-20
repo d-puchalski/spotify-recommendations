@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using MediatR;
 using System.Net;
-using Puchalski.Spotify.Integration.GetSearch;
+using Puchalski.Spotify.Application.GetSearch;
 
 namespace Puchalski.Spotify.Domain.Search {
 

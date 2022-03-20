@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using MediatR;
 using System.Net;
-using Puchalski.Spotify.Integration.PostRecommendation;
+using Puchalski.Spotify.Application.PostRecommendation;
 
 namespace Puchalski.Spotify.Api.Controllers.Recommendation {
 

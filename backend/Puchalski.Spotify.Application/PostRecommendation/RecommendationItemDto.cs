@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Puchalski.Spotify.Integration.PostRecommendation {
+namespace Puchalski.Spotify.Application.PostRecommendation {
     public class RecommendationItemDto {
         public string Id { get; set; }
         public string Name { get; set; }

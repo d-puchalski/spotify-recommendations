@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace Puchalski.Spotify.Domain.Search {
     public partial class SearchRequest {
 

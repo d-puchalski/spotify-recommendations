@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Puchalski.Spotify.Integration.GetSearch {
+namespace Puchalski.Spotify.Application.GetSearch {
     public class GetSearchQueryHandler : IRequestHandler<GetSearchQuery, List<SearchItemDto>> {
 
         private readonly ISearchService _service;

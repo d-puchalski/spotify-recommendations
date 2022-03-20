@@ -1,5 +1,5 @@
-﻿namespace Puchalski.Spotify.Domain.Search {
+﻿namespace Puchalski.Spotify.Domain.Recommendation {
     public interface IRecommendationService {
-        Task<List<RecommentationItem>> GetRecommendationAsync(RecommendationRequest request);
+        Task<List<RecommendationItem>> GetRecommendationAsync(RecommendationRequest request);
     }
 }

@@ -19,8 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Puchalski.Spotify.Application\Puchalski.Spotify.Application.csproj" />
     <ProjectReference Include="..\Puchalski.Spotify.Domain\Puchalski.Spotify.Domain.csproj" />
-    <ProjectReference Include="..\puchalski.spotify.integration\Puchalski.Spotify.Integration.csproj" />
+    <ProjectReference Include="..\Puchalski.Spotify.ExternalApi\Puchalski.Spotify.ExternalApi.csproj" />
   </ItemGroup>
 
 </Project>

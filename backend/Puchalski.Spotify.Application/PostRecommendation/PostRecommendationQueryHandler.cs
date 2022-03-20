@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.Extensions.Logging;
-using Puchalski.Spotify.Domain.Search;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Puchalski.Spotify.Domain.Recommendation;
 
-namespace Puchalski.Spotify.Integration.PostRecommendation {
+namespace Puchalski.Spotify.Application.PostRecommendation {
     public class PostRecommendationQueryHandler : IRequestHandler<PostRecommendationQuery, List<RecommendationItemDto>> {
 
         private readonly IRecommendationService _service;
@@ -27,7 +21,7 @@ namespace Puchalski.Spotify.Integration.PostRecommendation {
                 Market = request.Market,
                 Tracks = request.Tracks,
             });
-            return _mapper.Map<List<RecommentationItem>, List<RecommendationItemDto>>(result);
+            return _mapper.Map<List<RecommendationItem>, List<RecommendationItemDto>>(result);
         }
     }
 }
