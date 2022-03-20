@@ -1,21 +1,22 @@
 <script lang="ts">
   import * as animateScroll from "svelte-scrollto";
   import * as api from "../services/api";
-  import { globalStore, initStore } from "../services/store.js";
-  import { IGlobalStore } from "../interfaces/IGlobalStore";
+  import { initStore } from "../services/store.js";
+  import { GlobalStore } from "../models/GlobalStore";
   import Result from "./result.svelte";
-  import { get } from "svelte/store";
-  import { onDestroy } from "svelte";
+  import { SearchItemDto } from "../models/SearchItemDto";
+  import { RecommentationItemDto } from "../models/RecommentationItemDto";
+  import { SearchItemRequestDto } from "../models/SearchItemRequestDto";
+  import debounce from "lodash/debounce";
 
-  let selectedArtists: Array<string> = [];
-  let selectedTracks: Array<string> = [];
-  let _globalStore: IGlobalStore = null;
-  let suggestions: Array<any> = [];
-
-  $: isFindable = selectedArtists && selectedArtists.length > 0 && selectedTracks && selectedTracks.length > 0 && _globalStore.limit && _globalStore.genres && _globalStore.genres.length > 0 && _globalStore.market;
+  let selectedArtists: Array<SearchItemDto> = [];
+  let selectedTracks: Array<SearchItemDto> = [];
+  let onChange: GlobalStore = new GlobalStore();
+  let suggestions: Array<RecommentationItemDto> = [];
+  $: isFindable = selectedArtists && selectedArtists.length > 0 && selectedTracks && selectedTracks.length > 0 && onChange.limit && onChange.genres && onChange.genres.length > 0 && onChange.market;
 
   async function findSuggestion(): Promise<void> {
-    suggestions = (await api.GetRecommendationsApi(get(globalStore), selectedArtists, selectedTracks)).tracks;
+    suggestions = await api.GetRecommendationsApi(onChange, selectedArtists, selectedTracks);
     animateScroll.scrollToBottom();
   }
 
@@ -45,50 +46,33 @@
     }
   }
 
-  async function searchArtist(event): Promise<void> {
-    if (event.currentTarget.value.length > 2) {
-      globalStore.update((x: IGlobalStore) => {
-        api.SearchApi({ text: event.currentTarget.value, type: 2 }).then((result) => {
-          x.artists = result.artists;
-        });
-        return x;
-      });
+  const searchArtist = debounce(async function (event) {
+    if (event.target.value && event.target.value.length > 2) {
+      const request: SearchItemRequestDto = new SearchItemRequestDto(event.target.value, 2);
+      onChange.artists = await api.SearchApi(request);
     }
-  }
+  }, 300);
 
-  async function searchTrack(event): Promise<void> {
-    if (event.currentTarget.value.length > 2) {
-      globalStore.update((x: IGlobalStore) => {
-        api.SearchApi({ text: event.currentTarget.value, type: 1 }).then((result) => {
-          x.tracks = result.tracks;
-        });
-        return x;
-      });
+  const searchTrack = debounce(async (event) => {
+    if (event.target.value && event.target.value.length > 2) {
+      const request: SearchItemRequestDto = new SearchItemRequestDto(event.target.value, 1);
+      onChange.tracks = await api.SearchApi(request);
     }
-  }
+  }, 300);
 
   async function genresClick(event): Promise<void> {
-    globalStore.update((s: IGlobalStore) => {
-      if (s.genres.length > 1 && event.currentTarget.checked) {
-        event.preventDefault();
-        return s;
+    if (onChange.genres.length > 1 && event.currentTarget.checked) {
+      event.preventDefault();
+      return;
+    }
+    if (event.currentTarget.checked) {
+      if (!onChange.genres.find((q) => q == event.currentTarget.value)) {
+        onChange.genres = [...onChange.genres, event.currentTarget.value];
       }
-      if (event.currentTarget.checked) {
-        if (!s.genres.find((q) => q == event.currentTarget.value)) {
-          s.genres = [...s.genres, event.currentTarget.value];
-        }
-      } else {
-        s.genres = s.genres.filter((q) => q != event.currentTarget.value);
-      }
-      return s;
-    });
+    } else {
+      onChange.genres = onChange.genres.filter((q) => q != event.currentTarget.value);
+    }
   }
-
-  const u = globalStore.subscribe((x) => {
-    _globalStore = x;
-  });
-
-  onDestroy(u);
 </script>
 
 <section class="py-5">
@@ -103,9 +87,9 @@
           <div class="form-floating mb-3">
             <input class="form-control" id="artist" placeholder="Search artists" on:keyup={searchArtist} />
             <label for="artist">Artists *</label>
-            {#if _globalStore?.artists?.items && _globalStore?.artists?.items.length > 0}
+            {#if onChange?.artists && onChange?.artists.length > 0}
               <div class="row">
-                {#each _globalStore?.artists?.items as x}
+                {#each onChange?.artists as x}
                   {#if x.id && x.name}
                     <div class="col-4">
                       <div class="form-check form-switch">
@@ -121,9 +105,9 @@
           <div class="form-floating mb-3">
             <input class="form-control" id="track" placeholder="Search tracks" on:keyup={searchTrack} />
             <label for="artist">Tracks *</label>
-            {#if _globalStore?.tracks?.items && _globalStore?.tracks?.items.length > 0}
+            {#if onChange?.tracks && onChange?.tracks?.length > 0}
               <div class="row">
-                {#each _globalStore?.tracks?.items as x}
+                {#each onChange?.tracks as x}
                   {#if x.id && x.name}
                     <div class="col-4">
                       <div class="form-check form-switch">
@@ -137,7 +121,7 @@
             {/if}
           </div>
           <div class="form-floating mb-3">
-            <select class="form-select form-select-lg mb-3" id="market" aria-label=".form-select-lg example" bind:value={_globalStore.market}>
+            <select class="form-select form-select-lg mb-3" id="market" aria-label=".form-select-lg example" bind:value={onChange.market}>
               {#each $initStore.market as x}
                 <option value={x.id}>
                   {x.text}
@@ -146,7 +130,6 @@
             </select>
             <label for="market">Market *</label>
           </div>
-
           <div class="form-floating mb-3">
             <div class="row">
               {#each $initStore.genre as x}
@@ -159,9 +142,8 @@
               {/each}
             </div>
           </div>
-
           <div class="form-floating mb-3">
-            <select class="form-select form-select-lg mb-3" id="limit" aria-label=".form-select-lg example" bind:value={_globalStore.limit}>
+            <select class="form-select form-select-lg mb-3" id="limit" aria-label=".form-select-lg example" bind:value={onChange.limit}>
               {#each $initStore.limit as y}
                 <option value={y.id}>
                   {y.text}

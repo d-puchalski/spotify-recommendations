@@ -1,38 +1,4 @@
-import { readable, writable, get } from "svelte/store";
-import { IGlobalStore } from "../interfaces/IGlobalStore"
-
-export let globalStore = writable({
-  market: "",
-  limit: "",
-  genres: [],
-  artists: {
-    items: [
-      {
-        name: null,
-        id: null,
-        images: [
-          {
-            href: null,
-          },
-        ],
-      },
-    ],
-  },
-  tracks: {
-    items: [
-      {
-        name: null,
-        id: null,
-        images: [
-          {
-            href: null,
-          },
-        ],
-      },
-    ],
-  }
-} as IGlobalStore);
-
+import { readable } from "svelte/store";
 export let initStore = readable({
   market: [
     { id: "", text: "---" },

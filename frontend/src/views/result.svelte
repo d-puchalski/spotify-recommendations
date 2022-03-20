@@ -1,5 +1,8 @@
 <script lang="ts">
-  export let items: Array<any>;
+import { RecommentationItemDto } from "../models/RecommentationItemDto";
+
+
+  export let items: Array<RecommentationItemDto>;
 </script>
 
 {#if items && items.length > 0}
@@ -9,8 +12,8 @@
         <tbody>
           {#each items as x}
             <tr>
-              {#if x.album?.images && x.album?.images.length > 0 && x.album?.images[0]}
-                <td><img src={x.album.images[0].url} alt="" /></td>
+              {#if x.urlImage}
+                <td><img src={x.urlImage} alt="" /></td>
               {/if}
               <td>{x.name}</td>
             </tr>

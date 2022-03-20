@@ -3,21 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "puchalski.spotify.api", "puchalski.spotify.api\puchalski.spotify.api.csproj", "{481F650A-8641-47A9-92CF-01CEA86B550B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Puchalski.Spotify.Api", "Puchalski.Spotify.Api\Puchalski.Spotify.Api.csproj", "{481F650A-8641-47A9-92CF-01CEA86B550B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{50DB75CF-10D9-4EB1-904D-D01506FDEA0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Puchalski.Spotify.Test", "Puchalski.Spotify.Test\Puchalski.Spotify.Test.csproj", "{042AD653-5A51-44BC-A646-B521575AF18B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "puchalski.spotify.api.core", "puchalski.spotify.api.core\puchalski.spotify.api.core.csproj", "{384E6254-3749-4CF3-BEF7-41192E9880F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Puchalski.Spotify.Integration", "Puchalski.Spotify.Integration\Puchalski.Spotify.Integration.csproj", "{5A9D8BBF-E6AB-4BF1-BE09-2686D5F9B781}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "puchalski.model", "puchalski.spotify.api.core.model\puchalski.model.csproj", "{A1CD91ED-FB1B-43B2-BC3F-AFB401FB9D07}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GetRecommendations", "GetRecommendations", "{F99587B7-20BD-4213-BC6C-BB207F372860}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "puchalski.spotify.api.core.unitTest", "puchalski.spotify.api.core.unitTest\puchalski.spotify.api.core.unitTest.csproj", "{042AD653-5A51-44BC-A646-B521575AF18B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "puchalski.api.core", "puchalski.api.core\puchalski.api.core.csproj", "{E34011E2-4BB0-4C88-80B4-6AA466D5B564}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "puchalski.service", "puchalski.service\puchalski.service.csproj", "{E5CD74A2-01A0-49B3-8EC4-3E3CD145BD03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Puchalski.Spotify.Domain", "Puchalski.Spotify.Domain\Puchalski.Spotify.Domain.csproj", "{F1F13DD7-B0A6-43FF-A03E-CC51F1558947}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,37 +21,21 @@ Global
 		{481F650A-8641-47A9-92CF-01CEA86B550B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{481F650A-8641-47A9-92CF-01CEA86B550B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{481F650A-8641-47A9-92CF-01CEA86B550B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{384E6254-3749-4CF3-BEF7-41192E9880F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{384E6254-3749-4CF3-BEF7-41192E9880F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{384E6254-3749-4CF3-BEF7-41192E9880F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{384E6254-3749-4CF3-BEF7-41192E9880F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1CD91ED-FB1B-43B2-BC3F-AFB401FB9D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1CD91ED-FB1B-43B2-BC3F-AFB401FB9D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1CD91ED-FB1B-43B2-BC3F-AFB401FB9D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1CD91ED-FB1B-43B2-BC3F-AFB401FB9D07}.Release|Any CPU.Build.0 = Release|Any CPU
 		{042AD653-5A51-44BC-A646-B521575AF18B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{042AD653-5A51-44BC-A646-B521575AF18B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{042AD653-5A51-44BC-A646-B521575AF18B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{042AD653-5A51-44BC-A646-B521575AF18B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E34011E2-4BB0-4C88-80B4-6AA466D5B564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E34011E2-4BB0-4C88-80B4-6AA466D5B564}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E34011E2-4BB0-4C88-80B4-6AA466D5B564}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E34011E2-4BB0-4C88-80B4-6AA466D5B564}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E5CD74A2-01A0-49B3-8EC4-3E3CD145BD03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5CD74A2-01A0-49B3-8EC4-3E3CD145BD03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5CD74A2-01A0-49B3-8EC4-3E3CD145BD03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5CD74A2-01A0-49B3-8EC4-3E3CD145BD03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A9D8BBF-E6AB-4BF1-BE09-2686D5F9B781}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A9D8BBF-E6AB-4BF1-BE09-2686D5F9B781}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A9D8BBF-E6AB-4BF1-BE09-2686D5F9B781}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A9D8BBF-E6AB-4BF1-BE09-2686D5F9B781}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1F13DD7-B0A6-43FF-A03E-CC51F1558947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F13DD7-B0A6-43FF-A03E-CC51F1558947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F13DD7-B0A6-43FF-A03E-CC51F1558947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F13DD7-B0A6-43FF-A03E-CC51F1558947}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{384E6254-3749-4CF3-BEF7-41192E9880F1} = {F99587B7-20BD-4213-BC6C-BB207F372860}
-		{A1CD91ED-FB1B-43B2-BC3F-AFB401FB9D07} = {F99587B7-20BD-4213-BC6C-BB207F372860}
-		{F99587B7-20BD-4213-BC6C-BB207F372860} = {50DB75CF-10D9-4EB1-904D-D01506FDEA0B}
-		{042AD653-5A51-44BC-A646-B521575AF18B} = {F99587B7-20BD-4213-BC6C-BB207F372860}
-		{E34011E2-4BB0-4C88-80B4-6AA466D5B564} = {F99587B7-20BD-4213-BC6C-BB207F372860}
-		{E5CD74A2-01A0-49B3-8EC4-3E3CD145BD03} = {F99587B7-20BD-4213-BC6C-BB207F372860}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08D431D9-F0D3-4BE1-9DC8-464134EAD6F7}
